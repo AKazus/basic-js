@@ -1,4 +1,6 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const {
+  NotImplementedError
+} = require('../extensions/index.js');
 
 const MODERN_ACTIVITY = 15;
 const HALF_LIFE_PERIOD = 5730;
@@ -17,11 +19,17 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+function dateSample(sampleActivity) {
+  if (isNaN(sampleActivity) || sampleActivity == null ||
+   typeof (sampleActivity) != 'string' || sampleActivity.trim() == '' 
+   || sampleActivity <= 0 || sampleActivity > 15) {
+    return false;
+  }
+  let time = Math.log(MODERN_ACTIVITY / sampleActivity) * HALF_LIFE_PERIOD / 0.693;
+  return Math.ceil(time);
 
+}
+console.log(dateSample('3'));
 module.exports = {
   dateSample
 };
